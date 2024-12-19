@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Project</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #656262; /* 灰色背景 */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        canvas.webgl {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .overlay button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: rgba(128, 128, 128, 0.7); /* 半透明灰色 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 添加阴影 */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .overlay button:hover {
+            background-color: rgba(160, 160, 160, 0.9); /* 鼠标悬停时稍亮 */
+            transform: scale(1.05); /* 放大效果 */
+        }
+
+        .overlay button:active {
+            transform: scale(0.95); /* 点击时缩小效果 */
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <button id="startButton">Welcome to my island</button>
+    </div>
+    <canvas class="webgl"></canvas> 
+    <script type="module">
+        // 等待用户点击，触发音效播放
+        const startButton = document.getElementById('startButton');
+        const overlay = document.getElementById('overlay');
+
+        startButton.addEventListener('click', () => {
+            // 隐藏提示界面
+            overlay.style.display = 'none';
+
+            // 加载主脚本
+            import('./script.js').then((module) => {
+                console.log("Script loaded successfully");
+            }).catch((err) => {
+                console.error("Error loading script.js", err);
+            });
+        });
+    </script>   
+</body>
+</html>
